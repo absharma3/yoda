@@ -1,7 +1,9 @@
 package com.yoda.controllers;
 
 import com.yoda.models.Question;
+import com.yoda.models.User;
 import com.yoda.repository.QuestionRepository;
+import com.yoda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,9 +35,11 @@ public class QuestionController  {
     @Autowired
     QuestionRepository questionRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @RequestMapping(path = "/add/{userId}/{questionString}" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Question askQuestion(@PathVariable String questionString, @PathVariable String userId){
-
 
         //TODO add a user validation
         Question question =  new Question();
@@ -61,9 +66,35 @@ public class QuestionController  {
 
         //TODO add a user validation
         Question question = questionRepository.findOne(questionId);
-        question.setAnswerString(answer);
-        return questionRepository.save(question);
+        User user = userRepository.findOne(userId);
+        if (user.isQueryResolver()) {
+            question.setAnswerString(answer);
+            return questionRepository.save(question);
+        } else {
+            //TODO throw an exception
+            return question;
+        }
+
 
     }
+
+    @RequestMapping(path = "/{questionId}" , method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody Question getQuestion(@PathVariable String questionId){
+
+        //TODO add a user validation
+        Question question = questionRepository.findOne(questionId);
+        return question;
+
+    }
+
+    @RequestMapping(path = "user/{userId}" , method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody List<Question> getQuestions(@PathVariable String userId){
+
+        //TODO add a user validation
+        List<Question> questions = questionRepository.findByUserId(userId);
+        return questions;
+
+    }
+
 
 }
