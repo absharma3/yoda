@@ -40,7 +40,6 @@ public class QuestionController  {
 
     @RequestMapping(path = "/add/{userId}/{questionString}" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Question askQuestion(@PathVariable String questionString, @PathVariable String userId){
-
         //TODO add a user validation
         Question question =  new Question();
         question.setUserId(userId);
