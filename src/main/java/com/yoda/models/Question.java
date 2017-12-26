@@ -17,7 +17,7 @@ public class Question {
     @Id
     String questionId;
     String userId;
-    StringBuilder questionString;
+    String questionString;
     List<String> comments = new ArrayList<String>();
     String iPAddress;
     String answerString;
@@ -41,11 +41,11 @@ public class Question {
         this.userId = userId;
     }
 
-    public StringBuilder getQuestionString() {
+    public String getQuestionString() {
         return questionString;
     }
 
-    public void setQuestionString(StringBuilder questionString) {
+    public void setQuestionString(String questionString) {
         this.questionString = questionString;
     }
 

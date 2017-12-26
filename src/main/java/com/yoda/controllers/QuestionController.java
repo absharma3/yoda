@@ -45,6 +45,7 @@ public class QuestionController  {
         Question question =  new Question();
         question.setUserId(userId);
         question.setQuestionId(UUID.randomUUID().toString());
+        question.setQuestionString(questionString);
         return questionRepository.save(question);
 
     }
