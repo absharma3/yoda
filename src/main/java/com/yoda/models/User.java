@@ -11,18 +11,18 @@ public abstract class User {
 
 
     @Id
-    UUID userId;
+    String userId;
     String userName;
     String email;
     String mobile;
     String address;
     String password;
 
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

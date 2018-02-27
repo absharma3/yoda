@@ -28,30 +28,30 @@ import java.util.UUID;
  *
  */
 @Controller
-@RequestMapping("api")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(path = "/user" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User addUser(@RequestBody NormalUser user){
        return this.add(user);
     }
 
-    @RequestMapping(path = "/user/admin" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/admin" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User addAdmin(@RequestBody AdminUser user){
         return this.add(user);
     }
 
 
-    @RequestMapping(path = "/user/resolver" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/resolver" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User addUser(@RequestBody QueryResolver user){
         return this.add(user);
     }
 
 
-    @RequestMapping(path = "/user/{userId}" , method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/{userId}" , method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User find(@PathVariable String userId){
         return userRepository.findOne(userId);
     }
@@ -59,7 +59,7 @@ public class UserController {
     private User add(User user){
         //TODO Add validations on email and password
         //TODO Add validation if the email already exist
-        user.setUserId(UUID.randomUUID());
+        user.setUserId(UUID.randomUUID().toString());
         return userRepository.save(user);
     }
 
