@@ -2,6 +2,8 @@ package com.yoda.models;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 /**
  * Created by abhimanyus on 12/19/17.
  */
@@ -9,17 +11,18 @@ public abstract class User {
 
 
     @Id
-    String userId;
+    UUID userId;
     String userName;
-    String emailAddress;
+    String email;
     String mobile;
     String address;
+    String password;
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
@@ -31,12 +34,12 @@ public abstract class User {
         this.userName = userName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getMobile() {
@@ -53,6 +56,14 @@ public abstract class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public abstract boolean isAdmin();
