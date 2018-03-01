@@ -50,7 +50,7 @@ public class QuestionController  {
     }
 
 
-    @RequestMapping(path = "/comment/{userId}/{questionId}/{comment}" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/comment/{userId}/{questionId}/{comment}" , method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Question addComment(@PathVariable String questionId, @PathVariable String userId, @PathVariable String comment){
 
         //TODO add a user validation

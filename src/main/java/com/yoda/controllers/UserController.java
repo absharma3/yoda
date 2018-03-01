@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Context;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -46,7 +47,7 @@ public class UserController {
 
 
     @RequestMapping(path = "/resolver" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody User addUser(@RequestBody QueryResolver user){
+    public @ResponseBody User addResolver(@RequestBody QueryResolver user){
         return this.add(user);
     }
 
@@ -61,6 +62,20 @@ public class UserController {
         //TODO Add validation if the email already exist
         user.setUserId(UUID.randomUUID().toString());
         return userRepository.save(user);
+    }
+
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody User getUserByEmail(@RequestBody NormalUser userCredentials){
+
+        List<User> users = userRepository.getByEmailAndPassword(userCredentials.getEmail(), userCredentials.getPassword());
+        for(User user : users) {
+            if (user.getPassword().equals(userCredentials.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+
     }
 
 }
