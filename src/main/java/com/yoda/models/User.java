@@ -1,5 +1,6 @@
 package com.yoda.models;
 
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
@@ -11,59 +12,75 @@ public abstract class User {
 
 
     @Id
-    String userId;
-    String userName;
-    String email;
-    String mobile;
-    String address;
-    String password;
+    private String userId;
+    private String userName;
+    private String email;
+    private String mobile;
+    private String address;
+    private String password;
 
-    public String getUserId() {
-        return userId;
+    private DateTime createdTimestamp;
+    private DateTime updatedTimestamp;
+
+
+    public User() {
+        userId = UUID.randomUUID().toString();
+        createdTimestamp = DateTime.now();
+        updatedTimestamp = DateTime.now();
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+
+    public void setEmail(String email) {
+        this.email = email;
+        this.updatedTimestamp = DateTime.now();
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+        this.updatedTimestamp = DateTime.now();
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+        this.updatedTimestamp = DateTime.now();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        this.updatedTimestamp = DateTime.now();
+    }
+
+    public String getUserId() {
+
+        return userId;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public DateTime getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public DateTime getUpdatedTimestamp() {
+        return updatedTimestamp;
     }
 
     public abstract boolean isAdmin();

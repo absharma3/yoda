@@ -15,7 +15,9 @@ public interface UserRepository extends MongoRepository<User, String> {
      * @param email id for which the user has to be fetched from database.
      * @return  can return a null or a User which has
      */
-     List<User> getByEmailAndPassword(String email, String password);
+     User getByEmailAndPassword(String email, String password);
+     User getByEmail(String email);
+
 
 
 }

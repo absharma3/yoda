@@ -23,6 +23,8 @@ import java.util.UUID;
  * Admin creation
  * Query resolver creation
  * Fetching user based on id
+ * Update user password based on email
+ * Update existing user object
  *
  *
  * TODO user fetch based on email
@@ -60,22 +62,34 @@ public class UserController {
     private User add(User user){
         //TODO Add validations on email and password
         //TODO Add validation if the email already exist
-        user.setUserId(UUID.randomUUID().toString());
         return userRepository.save(user);
     }
 
 
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User getUserByEmail(@RequestBody NormalUser userCredentials){
+        //Ideally there should not be a condition where multiple users can have the same credentials but in case we have
+        //there should be a way to handle it
+        return userRepository.getByEmailAndPassword(userCredentials.getEmail(), userCredentials.getPassword());
 
-        List<User> users = userRepository.getByEmailAndPassword(userCredentials.getEmail(), userCredentials.getPassword());
-        for(User user : users) {
-            if (user.getPassword().equals(userCredentials.getPassword())) {
-                return user;
-            }
-        }
-        return null;
+    }
 
+    @RequestMapping(path = "/{userId}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody User updateUser(@PathVariable String userId, @RequestBody NormalUser newUserDetail){
+
+        //TODO have to figure out if in case user role has to be changed how to accommodate that
+        User previousUserDetail = userRepository.findOne(userId);
+        previousUserDetail.setEmail(newUserDetail.getEmail());
+        previousUserDetail.setAddress(newUserDetail.getAddress());
+        previousUserDetail.setPassword(newUserDetail.getPassword());
+        return userRepository.save(previousUserDetail);
+    }
+
+    @RequestMapping(path = "/email/{email}/{updatedPassword}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody User updateUser(@PathVariable String email, @PathVariable String updatedPassword){
+        User user = userRepository.getByEmail(email);
+        user.setPassword(updatedPassword);
+        return userRepository.save(user);
     }
 
 }

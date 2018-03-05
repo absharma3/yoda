@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
  */
 public class AdminUser extends User {
 
-    boolean admin = true;
+    private boolean admin = true;
 
     @Override
     public boolean isAdmin() {

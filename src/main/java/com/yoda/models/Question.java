@@ -15,14 +15,16 @@ import java.util.List;
 public class Question {
 
     @Id
-    String questionId;
-    String userId;
-    String questionString;
-    List<String> comments = new ArrayList<String>();
-    String iPAddress;
-    String answerString;
-    DateTime createdDate;
-    DateTime modifiedDate;
+    private String questionId;
+    private String userId;
+    private String questionString;
+    private List<String> comments = new ArrayList<String>();
+    private String iPAddress;
+    private String answerString;
+
+
+    private DateTime createdTimestamp;
+    private DateTime updatedTimestamp;
 
 
     public String getQuestionId() {
@@ -71,22 +73,6 @@ public class Question {
 
     public void setAnswerString(String answerString) {
         this.answerString = answerString;
-    }
-
-    public DateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(DateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public DateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(DateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
     }
 
     public void addComment(String comment){

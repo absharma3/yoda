@@ -5,7 +5,7 @@ package com.yoda.models;
  */
 public class QueryResolver extends User {
 
-    boolean queryResolver = true;
+    private boolean queryResolver = true;
 
     @Override
     public boolean isAdmin() {
