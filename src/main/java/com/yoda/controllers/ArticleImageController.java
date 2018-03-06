@@ -18,7 +18,7 @@ import java.io.IOException;
  * Created by abhimanyus on 3/5/18.
  */
 @Controller
-@RequestMapping(path = "api/article/image")
+@RequestMapping(path = "/api/article/image")
 public class ArticleImageController {
 
     @Autowired
