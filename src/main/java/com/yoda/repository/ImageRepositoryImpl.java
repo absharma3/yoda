@@ -24,8 +24,8 @@ public class ImageRepositoryImpl implements ImageRepository {
     private AmazonS3 s3client;
     private String bucketName = "images-yoda";
     private AWSCredentials credentials = new BasicAWSCredentials(
-            "AKIAIEZMHLJAHK7TDOPA",
-            "eT+37STmS1SXNPEiBE1nYl0SPZQbORx49BEL0FzN"
+            "accessKey",
+            "secretKey"
     );
     private String region = "https://s3.ap-south-1.amazonaws.com/";
 
