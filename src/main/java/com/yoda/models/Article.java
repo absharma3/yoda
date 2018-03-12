@@ -15,7 +15,7 @@ public class Article {
     @Id
     private String articleId;
     private String title;
-    private String imageUrl;
+    private ImageInfo imageInfo;
     private String body;
 
     private DateTime createdTimestamp;
@@ -37,8 +37,8 @@ public class Article {
         return title;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public ImageInfo getImageInfo() {
+        return imageInfo;
     }
 
     public String getBody() {
@@ -51,5 +51,9 @@ public class Article {
 
     public DateTime getUpdatedTimestamp() {
         return updatedTimestamp;
+    }
+
+    public void setImageInfo(ImageInfo imageInfo) {
+        this.imageInfo = imageInfo;
     }
 }

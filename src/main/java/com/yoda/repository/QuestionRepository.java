@@ -9,7 +9,5 @@ import java.util.List;
  * Created by abhimanyus on 12/18/17.
  */
 public interface QuestionRepository extends MongoRepository<Question, String> {
-
-    public List<Question> findByUserId(String userId);
-
+    List<Question> findByUserId(String userId);
 }

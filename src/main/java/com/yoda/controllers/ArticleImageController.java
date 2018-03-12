@@ -1,6 +1,8 @@
 package com.yoda.controllers;
 
+import com.yoda.models.Article;
 import com.yoda.models.ImageInfo;
+import com.yoda.repository.ArticleRepository;
 import com.yoda.repository.ImageRepository;
 import com.yoda.repository.ImageRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +24,21 @@ import java.io.IOException;
 public class ArticleImageController {
 
     @Autowired
-    ImageRepositoryImpl imageRepository;
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    private ImageRepositoryImpl imageRepository;
 
     @RequestMapping(path = "/{articleId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody ImageInfo uploadImage(@RequestParam MultipartFile image, @PathVariable String articleId) throws IOException {
+    public @ResponseBody ImageInfo uploadImageForArticle(@RequestParam MultipartFile image, @PathVariable String articleId) throws IOException {
 
         Assert.notNull(image, "Image can not be null");
-        //Some code here
-        return imageRepository.save(articleId, image);
+        ImageInfo imageInfo = imageRepository.save(articleId, image);
+        //TODO also update image info into the article
+        Article article = articleRepository.findOne(articleId);
+        article.setImageInfo(imageInfo);
+        return imageInfo;
+
 
     }
 

@@ -17,7 +17,7 @@ import javax.ws.rs.POST;
 public class JokeController {
 
     @Autowired
-    JokeRepository jokeRepository;
+    private JokeRepository jokeRepository;
 
     @RequestMapping(path = "", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Joke addJoke(@RequestBody Joke joke) {

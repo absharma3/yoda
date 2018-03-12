@@ -10,6 +10,7 @@ import java.io.IOException;
  */
 public interface ImageRepository {
 
-    public ImageInfo save(String articleId, MultipartFile image) throws IllegalStateException, IOException;
+    ImageInfo save(String articleId, MultipartFile image) throws IllegalStateException, IOException;
+    ImageInfo getImageInfo(String articleId);
 
 }

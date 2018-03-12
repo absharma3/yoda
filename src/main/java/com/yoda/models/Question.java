@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by abhimanyus on 12/18/17.
@@ -26,6 +27,11 @@ public class Question {
     private DateTime createdTimestamp;
     private DateTime updatedTimestamp;
 
+    public Question() {
+        this.questionId = UUID.randomUUID().toString();
+        this.createdTimestamp = DateTime.now();
+        this.updatedTimestamp = DateTime.now();
+    }
 
     public String getQuestionId() {
         return questionId;

@@ -33,10 +33,10 @@ public class QuestionController  {
 
 
     @Autowired
-    QuestionRepository questionRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @RequestMapping(path = "/{userId}/{questionString}" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Question askQuestion(@PathVariable String questionString, @PathVariable String userId){
@@ -82,8 +82,7 @@ public class QuestionController  {
     public @ResponseBody Question getQuestion(@PathVariable String questionId){
 
         //TODO add a user validation
-        Question question = questionRepository.findOne(questionId);
-        return question;
+        return questionRepository.findOne(questionId);
 
     }
 
@@ -91,8 +90,7 @@ public class QuestionController  {
     public @ResponseBody List<Question> getQuestions(@PathVariable String userId){
 
         //TODO add a user validation
-        List<Question> questions = questionRepository.findByUserId(userId);
-        return questions;
+        return questionRepository.findByUserId(userId);
 
     }
 

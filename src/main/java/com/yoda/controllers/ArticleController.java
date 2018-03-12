@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * Created by abhimanyus on 2/27/18.
+ *
+ * This class is responsible for managing article related REST end points
+ *
  */
 
 @Controller
@@ -18,7 +21,7 @@ import java.util.List;
 public class ArticleController {
 
     @Autowired
-    ArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
     @RequestMapping(path = "", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Article addArticle(@RequestBody Article article) {

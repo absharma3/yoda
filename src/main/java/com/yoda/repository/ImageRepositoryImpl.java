@@ -21,12 +21,15 @@ import java.io.*;
 public class ImageRepositoryImpl implements ImageRepository {
 
 
+
     private AmazonS3 s3client;
     private String bucketName = "images-yoda";
     private AWSCredentials credentials = new BasicAWSCredentials(
             "accessKey",
             "secretKey"
     );
+
+    //TODO Get rid of hard coding zone and bucket name
     private String region = "https://s3.ap-south-1.amazonaws.com/";
 
     public ImageRepositoryImpl() {
@@ -38,21 +41,38 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     }
 
+    @Override
     public ImageInfo save(String articleId, MultipartFile image) throws IllegalStateException, IOException {
         InputStream stream = image.getInputStream();
+
+        //Key should be unique per article
         String key = articleId + image.getOriginalFilename();
+        //Grant permission to all the users to view the file
         AccessControlList acl = new AccessControlList();
         acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
+
+        //Uploading data to S3 bucket
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, stream, new ObjectMetadata()).withAccessControlList(acl);
         PutObjectResult result = this.s3client.putObject(putObjectRequest);
+
+        //Creating return object with appropriate data
         ImageInfo imageInfo = new ImageInfo();
         imageInfo.setBucketName(bucketName);
         imageInfo.setImageName(image.getName());
         imageInfo.setKey(key);
         imageInfo.seteTag(result.getETag());
+
+        //Link to access image uploaded to s3
         imageInfo.buildLink(this.region);
         return imageInfo;
 
+    }
+
+    @Override
+    public ImageInfo getImageInfo(String articleId) {
+
+        //TODO should be able to fetch image based on key
+        return null;
     }
 
     public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException
@@ -61,4 +81,6 @@ public class ImageRepositoryImpl implements ImageRepository {
         multipart.transferTo(convFile);
         return convFile;
     }
+
+
 }

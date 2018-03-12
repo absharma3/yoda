@@ -5,9 +5,11 @@ import com.yoda.models.NormalUser;
 import com.yoda.models.QueryResolver;
 import com.yoda.models.User;
 import com.yoda.repository.UserRepository;
+import com.yoda.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Context;
@@ -27,15 +29,16 @@ import java.util.UUID;
  * Update existing user object
  *
  *
- * TODO user fetch based on email
- *
  */
 @Controller
 @RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    UserValidator userValidator;
 
     @RequestMapping(path = "" , method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody User addUser(@RequestBody NormalUser user){
@@ -62,6 +65,8 @@ public class UserController {
     private User add(User user){
         //TODO Add validations on email and password
         //TODO Add validation if the email already exist
+
+        userValidator.validate(user);
         return userRepository.save(user);
     }
 
@@ -70,7 +75,9 @@ public class UserController {
     public @ResponseBody User getUserByEmail(@RequestBody NormalUser userCredentials){
         //Ideally there should not be a condition where multiple users can have the same credentials but in case we have
         //there should be a way to handle it
-        return userRepository.getByEmailAndPassword(userCredentials.getEmail(), userCredentials.getPassword());
+        User user = userRepository.getByEmailAndPassword(userCredentials.getEmail(), userCredentials.getPassword());
+        Assert.notNull(user, "Unable to find user with the given credentials for " + userCredentials.getEmail());
+        return user;
 
     }
 
@@ -90,6 +97,11 @@ public class UserController {
         User user = userRepository.getByEmail(email);
         user.setPassword(updatedPassword);
         return userRepository.save(user);
+    }
+
+    @RequestMapping(path = "/email/{email}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody User getUser(@PathVariable String email){
+        return userRepository.getByEmail(email);
     }
 
 }
