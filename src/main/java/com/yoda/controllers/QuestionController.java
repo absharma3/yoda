@@ -90,8 +90,13 @@ public class QuestionController  {
     public @ResponseBody List<Question> getQuestions(@PathVariable String userId){
 
         //TODO add a user validation
-        return questionRepository.findByUserId(userId);
-
+        User user = userRepository.findOne(userId);
+        if(user.isQueryResolver()){
+         return questionRepository.findAll();
+        }
+        else {
+            return questionRepository.findByUserId(userId);
+        }
     }
 
 

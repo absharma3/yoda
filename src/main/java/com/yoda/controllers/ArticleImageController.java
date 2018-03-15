@@ -1,5 +1,6 @@
 package com.yoda.controllers;
 
+import com.yoda.com.yoda.NotYetImplemented;
 import com.yoda.models.Article;
 import com.yoda.models.ImageInfo;
 import com.yoda.repository.ArticleRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.PathParam;
 import java.io.IOException;
 
@@ -37,9 +39,16 @@ public class ArticleImageController {
         //TODO also update image info into the article
         Article article = articleRepository.findOne(articleId);
         article.setImageInfo(imageInfo);
+        articleRepository.save(article);
         return imageInfo;
 
 
+    }
+
+    @RequestMapping(path = "/{articleId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody ImageInfo fetchImageForArticle(@PathVariable String articleId) throws IOException, NotYetImplemented {
+        Assert.notNull(articleId, "Article ID can not be null");
+        throw new NotYetImplemented();
     }
 
 }
