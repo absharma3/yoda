@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,16 +86,16 @@ public class Question {
         comments.add(comment);
     }
 
-    public DateTime getCreatedTimestamp() {
-        return createdTimestamp;
+    public Date getCreatedTimestamp() {
+        return createdTimestamp.toDate();
     }
 
     public void setCreatedTimestamp(DateTime createdTimestamp) {
         this.createdTimestamp = createdTimestamp;
     }
 
-    public DateTime getUpdatedTimestamp() {
-        return updatedTimestamp;
+    public Date getUpdatedTimestamp() {
+        return updatedTimestamp.toDate();
     }
 
     public void setUpdatedTimestamp(DateTime updatedTimestamp) {

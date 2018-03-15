@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -64,12 +65,12 @@ public class Article {
         return body;
     }
 
-    public DateTime getCreatedTimestamp() {
-        return createdTimestamp;
+    public Date getCreatedTimestamp() {
+        return createdTimestamp.toDate();
     }
 
-    public DateTime getUpdatedTimestamp() {
-        return updatedTimestamp;
+    public Date getUpdatedTimestamp() {
+        return updatedTimestamp.toDate();
     }
 
     public void setImageInfo(ImageInfo imageInfo) {

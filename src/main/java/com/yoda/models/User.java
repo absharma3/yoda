@@ -3,6 +3,7 @@ package com.yoda.models;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -75,12 +76,12 @@ public abstract class User {
         return password;
     }
 
-    public DateTime getCreatedTimestamp() {
-        return createdTimestamp;
+    public Date getCreatedTimestamp() {
+        return createdTimestamp.toDate();
     }
 
-    public DateTime getUpdatedTimestamp() {
-        return updatedTimestamp;
+    public Date getUpdatedTimestamp() {
+        return updatedTimestamp.toDate();
     }
 
     public abstract boolean isAdmin();

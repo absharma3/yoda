@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import com.yoda.models.ImageInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,19 +24,24 @@ public class ImageRepositoryImpl implements ImageRepository {
 
 
     private AmazonS3 s3client;
-    private String bucketName = "images-yoda";
-    private AWSCredentials credentials = new BasicAWSCredentials(
-            "accessKey",
-            "secretKey"
-    );
 
-    //TODO Get rid of hard coding zone and bucket name
-    private String region = "https://s3.ap-south-1.amazonaws.com/";
+    @Value("${aws.image.bucket}")
+    private String bucketName;
+
+    @Value("${aws.image.region}")
+    private String region;
+
+    @Value("${aws.access.key.id}")
+    private String accessKey;
+
+    @Value("${aws.secret.key}")
+    private String secretKey;
 
     public ImageRepositoryImpl() {
-         s3client = AmazonS3ClientBuilder
+
+        s3client = AmazonS3ClientBuilder
                 .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey,secretKey)))
                 .withRegion(Regions.AP_SOUTH_1)
                 .build();
 

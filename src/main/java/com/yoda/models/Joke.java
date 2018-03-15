@@ -2,6 +2,7 @@ package com.yoda.models;
 
 import org.joda.time.DateTime;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -43,16 +44,16 @@ public class Joke {
         this.jokeId = jokeId;
     }
 
-    public DateTime getCreatedTimestamp() {
-        return createdTimestamp;
+    public Date getCreatedTimestamp() {
+        return createdTimestamp.toDate();
     }
 
     public void setCreatedTimestamp(DateTime createdTimestamp) {
         this.createdTimestamp = createdTimestamp;
     }
 
-    public DateTime getUpdatedTimestamp() {
-        return updatedTimestamp;
+    public Date getUpdatedTimestamp() {
+        return updatedTimestamp.toDate();
     }
 
     public void setUpdatedTimestamp(DateTime updatedTimestamp) {
