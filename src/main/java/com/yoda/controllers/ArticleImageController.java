@@ -45,10 +45,10 @@ public class ArticleImageController {
 
     }
 
-    @RequestMapping(path = "/{articleId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody ImageInfo fetchImageForArticle(@PathVariable String articleId) throws IOException, NotYetImplemented {
+    @RequestMapping(path = "/{articleId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody ImageInfo fetchImageForArticle(@PathVariable String articleId) throws IOException{
         Assert.notNull(articleId, "Article ID can not be null");
-        throw new NotYetImplemented();
+        return null;
     }
 
 }
