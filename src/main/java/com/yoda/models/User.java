@@ -86,4 +86,20 @@ public abstract class User {
     public abstract boolean isAdmin();
     public abstract boolean isQueryResolver();
 
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setCreatedTimestamp(DateTime createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
+
+    public void setUpdatedTimestamp(DateTime updatedTimestamp) {
+        this.updatedTimestamp = updatedTimestamp;
+    }
 }

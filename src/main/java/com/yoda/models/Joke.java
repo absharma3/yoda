@@ -38,4 +38,29 @@ public class Joke {
     public void setHeading(String heading) {
         this.heading = heading;
     }
+
+    public void setJokeId(String jokeId) {
+        this.jokeId = jokeId;
+    }
+
+    public DateTime getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(DateTime createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
+
+    public DateTime getUpdatedTimestamp() {
+        return updatedTimestamp;
+    }
+
+    public void setUpdatedTimestamp(DateTime updatedTimestamp) {
+        this.updatedTimestamp = updatedTimestamp;
+    }
+
+    public String getJokeId() {
+
+        return jokeId;
+    }
 }

@@ -28,6 +28,25 @@ public class Article {
 
     }
 
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setCreatedTimestamp(DateTime createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
+
+    public void setUpdatedTimestamp(DateTime updatedTimestamp) {
+        this.updatedTimestamp = updatedTimestamp;
+    }
 
     public String getArticleId() {
         return articleId;
